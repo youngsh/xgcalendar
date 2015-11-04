@@ -48,14 +48,15 @@ function GetCalendarViewFormat($viewType, $showdate)
 			$index = WEEK_START ;//0    
 			$first_time = $first_date->getTimestamp();
 			$first_time_format = getdate($first_time);
-			$w = index - date("w",$first_time) ;//0-1
+			$w = $index - date("w",$first_time) ;//0-1
 			if ($w > 0){
 				$w -= 7;
 			}
 			$ret["start_date"] =mktime(0, 0, 0, $first_time_format["mon"],  $first_time_format["mday"]+$w ,  $first_time_format["year"]);
 			$ret["end_date"] =mktime(23, 59, 59,$first_time_format["mon"],  $first_time_format["mday"]+37 ,  $first_time_format["year"]);
 
-			if ( date("Y",$ret["end_date"] ) == showday.Year && date("m",$ret["end_date"] ) == showday.Month && date("m",$ret["end_date"]+mktime(0,0,0,0,1,0)) == date("m",$ret["end_date"]))
+            $showday = getPref('showdate');
+			if ( date("Y-m",$ret["end_date"] ) == date("Y-m", strtotime($showday)) && date("m",$ret["end_date"]+mktime(0,0,0,0,1,0)) == date("m",$ret["end_date"]))
 			{
 				$ret["end_date"] =$ret["end_date"] + mktime(0,0,0,0,7,0) ;
 			}			
@@ -65,7 +66,7 @@ function GetCalendarViewFormat($viewType, $showdate)
 }
 function GetClientIP()
 {
-	$user_IP = ($_SERVER["HTTP_VIA"]) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];
+	$user_IP = isset($_SERVER["HTTP_VIA"]) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];
 	$user_IP = ($user_IP) ? $user_IP : $_SERVER["REMOTE_ADDR"];
 	return $user_IP;
 }

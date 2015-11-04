@@ -1,10 +1,11 @@
 <?php
-ob_start();
 header("Content-type:application/json; charset=utf-8"); 
+ob_start();
 require_once('includes/prefs.inc.php');
 require_once('includes/db.php');
 require_once('resources/i18n.php');
 ob_end_flush();
+ob_end_clean();
 if( IsPost() ) // 如果是post提交数据
 {
 	
@@ -105,8 +106,8 @@ function QuickUpdate()
 		//echo getPref("CalendarStartTime")."|";
 		//echo getPref("CalendarEndTime")."|";
 		//echo msg(datestring)."|";
-		$start_time = DateTime::createFromFormat(msg(datestring)." H:i",getPref("CalendarStartTime"));
-		$end_time = DateTime::createFromFormat(msg(datestring)." H:i",getPref("CalendarEndTime"));
+		$start_time = DateTime::createFromFormat(msg("datestring")." H:i",getPref("CalendarStartTime"));
+		$end_time = DateTime::createFromFormat(msg("datestring")." H:i",getPref("CalendarEndTime"));
 
 		$clientzone = getPref('timezone');
 		$serverzone= TIMEZONE_INDEX;
@@ -166,7 +167,7 @@ function QuickDelete()
 function strtodate($strdata)
 {	
 	
-	$date= date_create_from_format(msg(datestring),$strdata );
+    $date = DateTime::createFromFormat(msg("datestring"),$strdata);
 	
 	return $date;
 }
@@ -182,7 +183,7 @@ function GetCalendarsByRange()
 	$zonediff = $serverzone-$clientzone ; 
 	$showday = strtodate($str_show_day);
 
-	if (($timestamp =  date_timestamp_get($showday)) === false) {
+    if (($timestamp =  date_timestamp_get($showday)) === false) {
 		echo 1;
 		$ret["error"] = array("ErrorCode"=>"NotVolidDateTimeFormat","ErrorMsg"=>msg("notvoliddatetimeformat")) ;//替换成
 	}

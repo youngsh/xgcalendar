@@ -1,8 +1,7 @@
 ﻿<?php
-
-$dsn = 'mysql:dbname='.SAE_MYSQL_DB.';host='.SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT.'';
-$user = SAE_MYSQL_USER;
-$password = SAE_MYSQL_PASS;
+$dsn = 'mysql:host=10.11.201.237;dbname=calendar';
+$user = 'dhuser';
+$password = 'dhdev123';
 /*
 $dsn = 'mysql:dbname=xgcalendar;host=localhost:3306';
 $user = 'admin';

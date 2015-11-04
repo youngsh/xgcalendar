@@ -5,7 +5,6 @@
 	{
 		
 		global $dsn, $user,$password;
-		//echo $db_server."|".$db_user."|".$db_pwd."|".$db_name;
 		try {
 			$db = new PDO($dsn, $user, $password);
 		} 

@@ -27,7 +27,7 @@ if( getPref('lang') != NULL ) {
 }
   
 if(!isset($lang)) {
-   $lang == 'auto';
+   $lang = 'auto';
 }
 
 //
